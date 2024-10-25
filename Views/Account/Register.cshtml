@@ -5,49 +5,78 @@
     ViewData["Title"] = "สมัครสมาชิก";
 }
 
-<div class="container">
-    <div class="border border-2 py-3">
-        <h2 class="text-center">สมัครสมาชิก</h2>
-    </div>
-    <form method="POST" asp-contoller="Account" asp-action="Register"
-        class="border border-2 border-top-0 px-4 py-2">
+<div class="w-100 h-100 py-2 d-flex flex-column justify-content-center item-align-center
+    bg-md-danger">
+    <div class="container border border-2 rounded
+       d-flex flex-column justify-content-center align-items-center bg-white">
+        <div class="border-4 pt-4 w-100 text-center">
+            <h1 class="fw-bold text-primary ">REGISTER FORM</h1>
+            <hr>
+        </div>
         @if (!string.IsNullOrEmpty(msg))
         {
-            <div class="alert alert-success" role="alert">
-                @msg
-                <a asp-action="Login"> [ไปที่หน้าข้าสู่ระบบ] </a>
+            <div class="w-100 alert alert-success text-center" role="alert">
+                @msg <a asp-action="Login" class="alert-link">Go to the login page</a>
             </div>
         }
         @if(!string.IsNullOrEmpty(errMsg))
         {
-            <div class="alert alert-danger" role="alert">
+            <div class="w-100 alert alert-danger text-center" role="alert">
                 @errMsg
             </div>
         }
-        <div class="mb-3">
-            <label asp-for="Username" class="form-label"></label>
-            <input asp-for="Username" type="text" class="form-control">
-            <span asp-validation-for="Username" class="text-danger"></span>
+        <div class="w-100">
+            <form method="POST" asp-contoller="Account" asp-action="Register"
+                class="row pb-4 gy-2 gx-4">
+                <div class="col-12 col-sm-6">
+                    <label asp-for="FirstName" class="px-1"></label>
+                    <input asp-for="FirstName" type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="LastName" class="px-1"></label>
+                    <input asp-for="LastName" type="text" class="form-control" style="background-color:#f9fafb;" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="Email" class="px-1"></label>
+                    <input asp-for="Email" type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="Phone" class="px-1"></label>
+                    <input asp-for="Phone" type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Username" class="px-1"></label>
+                    <input asp-for="Username" type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="Password" class="px-1"></label>
+                    <input asp-for="Password"  type="password" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="ConfirmPassword" class="px-1"></label>
+                    <input asp-for="ConfirmPassword"  type="password" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Address" class="px-1"></label>
+                    <textarea asp-for="Address" type="password" class="form-control" style="background-color:#f9fafb;"></textarea>
+                </div>
+
+
+                <div class="p-3 w-100">
+                    <hr>
+                    <button class="btn btn-primary btn-md px-4" type="submit">REGISTER</button>
+                    <button class="btn btn-primary btn-md px-4" type="reset">RESET</button>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" type="text" class="form-control">
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Password" class="form-label"></label>
-            <input asp-for="Password" type="password" class="form-control">
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ConfirmPassword" class="form-label"></label>
-            <input asp-for="ConfirmPassword" asp-validation-for="ConfirmPassword" type="password" class="form-control">
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-        <div class="d-flex justify-content-start my-4">
-            <button type="submit" class="btn btn-primary btn-md px-5">สมัคร</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 

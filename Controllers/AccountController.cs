@@ -46,7 +46,7 @@ namespace OnlineBookStoreManagementSystem.Controllers
                 }
                 else
                 {
-                    TempData["LoginError"] = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง";
+                    TempData["LoginError"] = "Username or password is incorrect.";
                     return RedirectToAction("Login");
                 }
             }
@@ -67,7 +67,7 @@ namespace OnlineBookStoreManagementSystem.Controllers
 
             if (exitingUser != null)
             {
-                TempData["RegisterError"] = "ชื่อผู้ใช้งานหรืออีเมลนี้มีอยู่ในระบบแล้ว! กรุณาตรวจสอบใหม่อีครั้ง";
+                TempData["RegisterError"] = "This username or email already exists! Please check again.";
                 return RedirectToAction("Register");
             }
 
@@ -77,14 +77,18 @@ namespace OnlineBookStoreManagementSystem.Controllers
 
                 var user = new Account
                 {
+                    FirstName = data.FirstName, 
+                    LastName = data.LastName,
                     Username = data.Username,
                     Email = data.Email,
-                    Password = hashPassword
+                    Phone = data.Phone,
+                    Password = hashPassword,
+                    Address = data.Address,
                 };
 
                 _db.Accounts.Add(user);
                 _db.SaveChanges();
-                TempData["RegisterSuccess"] = "สมัครสมาชิกสำเร็จ! กรุณาล็อกอินเพื่อเข้าสู่ระบบ";
+                TempData["RegisterSuccess"] = "Account registration completed!!";
                 return RedirectToAction("Register");
             }
             return View(data);
