@@ -1,0 +1,53 @@
+﻿@model Account;
+@{
+    var msg = TempData["RegisterSuccess"] as string;
+    var errMsg = TempData["RegisterError"] as string;
+    ViewData["Title"] = "สมัครสมาชิก";
+}
+
+<div class="container">
+    <div class="border border-2 py-3">
+        <h2 class="text-center">สมัครสมาชิก</h2>
+    </div>
+    <form method="POST" asp-contoller="Account" asp-action="Register"
+        class="border border-2 border-top-0 px-4 py-2">
+        @if (!string.IsNullOrEmpty(msg))
+        {
+            <div class="alert alert-success" role="alert">
+                @msg
+                <a asp-action="Login"> [ไปที่หน้าข้าสู่ระบบ] </a>
+            </div>
+        }
+        @if(!string.IsNullOrEmpty(errMsg))
+        {
+            <div class="alert alert-danger" role="alert">
+                @errMsg
+            </div>
+        }
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label"></label>
+            <input asp-for="Username" type="text" class="form-control">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" type="text" class="form-control">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" type="password" class="form-control">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ConfirmPassword" class="form-label"></label>
+            <input asp-for="ConfirmPassword" asp-validation-for="ConfirmPassword" type="password" class="form-control">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="d-flex justify-content-start my-4">
+            <button type="submit" class="btn btn-primary btn-md px-5">สมัคร</button>
+        </div>
+    </form>
+</div>
+
+
