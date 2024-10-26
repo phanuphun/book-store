@@ -1,6 +1,66 @@
-﻿
+﻿@model AccountUpdate;
 @{
-    ViewData["Title"] = "จัดการผู้ใช้งาน";
+    ViewData["Title"] = "My Account";
+    var msgSucc = TempData["msgSucc"] as string;
+    var msgErr = TempData["msgErr"] as string;
 }
 
-<h1>จัดการผู้ใช้งาน</h1>
+<div class="container">
+    <div class="px-4 border rounded my-4">
+        <div class="border-4 pt-4 w-100 ">
+            <h3 class="fw-bold text-primary ">MY ACCOUNT</h3>
+            <hr>
+        </div>
+
+        @if (!string.IsNullOrEmpty(msgSucc))
+        {
+            <div class="w-100 alert alert-success text-center" role="alert">
+                @msgSucc
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(msgErr))
+        {
+            <div class="w-100 alert alert-danger text-center" role="alert">
+                @msgErr
+            </div>
+        }
+        <div class="w-100">
+            <form method="POST" asp-controller="Account" asp-action="UpdateMyAccount"
+                class="row gy-2 gx-4">
+                    <input type="hidden" asp-for="Id" />
+                <div class="col-12 col-sm-6">
+                    <label asp-for="FirstName" class="px-1"></label>
+                    <input asp-for="FirstName"  type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="LastName" class="px-1"></label>
+                    <input asp-for="LastName" type="text" class="form-control" style="background-color:#f9fafb;" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="Email" class="px-1">Email</label>
+                    <input asp-for="Email"  type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label asp-for="Phone" class="px-1"></label>
+                    <input asp-for="Phone" maxlength="10" type="text" class="form-control" style="background-color:#f9fafb;" />
+                </div>
+                <div class="col-12">
+                    <label asp-for="Username"  class="px-1"></label>
+                    <input asp-for="Username" type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Address" class="px-1"></label>
+                    <textarea asp-for="Address"  class="form-control" style="background-color:#f9fafb;"></textarea>
+                </div>
+                <div class="py-3 w-100 d-flex justify-content-end">
+                    <button class="px-4 btn btn-primary " type="submit">UPDATE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+ 

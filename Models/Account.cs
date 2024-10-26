@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineBookStoreManagementSystem.Models
 {
+    
     public class Account 
     {
         [Key]
@@ -32,7 +33,7 @@ namespace OnlineBookStoreManagementSystem.Models
         [DisplayName("ชื่อผู้ใช้งาน")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "กรุณาป้อนข้อมูล")]
+        [Required(ErrorMessage = "กรุณาป้อนรหัสผ่าน")]
         [MinLength(4, ErrorMessage = "รหัสผ่านต้องมีความยาวอย่างน้อย 4 ตัวอักษร")]
         [DisplayName("รหัสผ่าน")]
         public string Password { get; set; }
@@ -45,5 +46,15 @@ namespace OnlineBookStoreManagementSystem.Models
 
         [DisplayName("ที่อยู่")]
         public string Address { get; set; }
+
+        [DisplayName("สถานะ")]
+        public string Status { get; set; }
+
+
+        public Account()
+        {
+            // ตั้งค่าเริ่มต้นให้เป็น Customer
+            Status = "Customer";
+        }
     }
 }

@@ -3,20 +3,21 @@
     var msg = TempData["RegisterSuccess"] as string;
     var errMsg = TempData["RegisterError"] as string;
     ViewData["Title"] = "สมัครสมาชิก";
+    Layout = "~/Views/Shared/_layoutNone.cshtml";
 }
 
-<div class="w-100 h-100 py-2 d-flex flex-column justify-content-center item-align-center
-    bg-md-danger">
-    <div class="container border border-2 rounded
-       d-flex flex-column justify-content-center align-items-center bg-white">
+<div class="w-100 h-100 min-vh-100 py-5 d-flex flex-column justify-content-center item-align-center
+    bg-secondary bg-md-danger">
+    <div class="container border rounded d-flex flex-column justify-content-center align-items-center bg-white"
+         style="width: auto; max-width: 600px;">
         <div class="border-4 pt-4 w-100 text-center">
-            <h1 class="fw-bold text-primary ">REGISTER FORM</h1>
+            <h3 class="fw-bold text-primary ">REGISTER FORM</h3>
             <hr>
         </div>
         @if (!string.IsNullOrEmpty(msg))
         {
             <div class="w-100 alert alert-success text-center" role="alert">
-                @msg <a asp-action="Login" class="alert-link">Go to the login page</a>
+                @msg 
             </div>
         }
         @if(!string.IsNullOrEmpty(errMsg))
@@ -41,7 +42,6 @@
                     <label asp-for="Email" class="px-1"></label>
                     <input asp-for="Email" type="text" class="form-control" style="background-color:#f9fafb;" />
                     <span asp-validation-for="Email" class="text-danger"></span>
-
                 </div>
                 <div class="col-12 col-sm-6">
                     <label asp-for="Phone" class="px-1"></label>
@@ -70,9 +70,12 @@
 
 
                 <div class="p-3 w-100">
-                    <hr>
-                    <button class="btn btn-primary btn-md px-4" type="submit">REGISTER</button>
-                    <button class="btn btn-primary btn-md px-4" type="reset">RESET</button>
+                    <button class="w-100 btn btn-primary" type="submit">REGISTER</button>
+                </div>
+                <hr>
+                <div class="w-100  d-flex justify-content-center">
+                    <a class="px-2" asp-controller="Account" asp-action="Login"> Back to Login </a>
+                    <a class="px-2" asp-controller="Book" asp-action="Index"> Back to home </a>
                 </div>
             </form>
         </div>

@@ -1,16 +1,18 @@
 ﻿@model Account
 @{
+
     var msg = TempData["LoginSuccess"] as string;
     var errMsg = TempData["LoginError"] as string;
     ViewData["Title"] = "เข้าสู่ระบบ";
+    Layout = "~/Views/Shared/_layoutNone.cshtml";
 }
 
-<div class="w-100 h-100 py-2 d-flex flex-column justify-content-center item-align-center
-    bg-md-danger">
-    <div class="container border rounded
-       d-flex flex-column justify-content-center align-items-center bg-white">
+<div class="w-100 h-100 min-vh-100 py-5 d-flex flex-column justify-content-center item-align-center
+    bg-secondary bg-md-danger">
+    <div class="container border rounded d-flex flex-column justify-content-center align-items-center bg-white"
+         style="width: auto; max-width: 450px;">
         <div class="border-4 pt-4 w-100 text-center">
-            <h1 class="fw-bold text-primary "><i class="bi bi-box-arrow-in-right mx-3"></i>LOGIN FORM</h1>
+            <h3 class="fw-bold text-primary ">LOGIN FORM</h3>
             <hr>
         </div>
         @if (!string.IsNullOrEmpty(errMsg))
@@ -31,9 +33,18 @@
                     <input asp-for="Password" type="password" class="form-control" style="background-color:#f9fafb;">
                 </div>
 
-                <div class="p-3 w-100">
-                    <hr>
-                    <button class="btn btn-primary btn-md" type="submit">LOGIN</button>
+                <div class=" w-100 mt-4 py-2 mt-5">
+                    <button id="liveToastBtn"
+                            class="btn btn-primary btn-md px-4 w-100 rounded" type="submit">
+                        LOGIN
+                    </button>
+                </div>
+                <hr class="">
+                <div class="w-100  d-flex justify-content-center">
+                    Apply for a new member <a class="px-2" asp-action="Register"> click here.</a>
+                </div>
+                <div class="w-100 d-flex justify-content-center">
+                    <a class="px-2" asp-controller="Book" asp-action="Index"> Back to home </a>
                 </div>
             </form>
         </div>

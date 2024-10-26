@@ -3,8 +3,7 @@ using OnlineBookStoreManagementSystem.Data;
 using OnlineBookStoreManagementSystem.Models;
 using System.Text;
 using System.Security.Cryptography;
- 
-
+using System.Diagnostics;
 
 namespace OnlineBookStoreManagementSystem.Controllers
 {
@@ -21,10 +20,32 @@ namespace OnlineBookStoreManagementSystem.Controllers
 
         public IActionResult Index()
         {
-            var username = HttpContext.Session.GetString("Username");
-            ViewData["Username"] = username; // ส่งค่าไปยัง ViewData
+            //var username = HttpContext.Session.GetString("Username");
+            //ViewData["Username"] = username;
 
-            return View();
+            var idString = HttpContext.Session.GetString("Id");
+            if (string.IsNullOrEmpty(idString) || !int.TryParse(idString, out int id))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var account = _db.Accounts.Find(id);
+            if (account == null)
+            {
+                return NotFound(); // หรือทำการจัดการในแบบที่คุณต้องการ
+            }
+            var accountUpdate = new AccountUpdate
+            {
+                Id = account.Id,
+                FirstName = account.FirstName,
+                LastName = account.LastName,
+                Email = account.Email,
+                Phone = account.Phone,
+                Username = account.Username,
+                Address = account.Address
+            };
+
+            return View(accountUpdate);
         }
 
         public IActionResult Login() 
@@ -40,7 +61,10 @@ namespace OnlineBookStoreManagementSystem.Controllers
             {
                 if(VerifyPassword(data.Password,user.Password))
                 {
-                    HttpContext.Session.SetString("Username", user.Username);
+                    Debug.WriteLine("users data:" + user);
+                    HttpContext.Session.SetString("Id", user.Id.ToString());
+                    HttpContext.Session.SetString("Status", user.Status);
+                    HttpContext.Session.SetString("Username", user.FirstName + " "+ user.LastName);
                     TempData["LoginSuccess"] = "เข้าสู่ระบบสำเร็จ";
                     return RedirectToAction("Index");
                 }
@@ -49,6 +73,10 @@ namespace OnlineBookStoreManagementSystem.Controllers
                     TempData["LoginError"] = "Username or password is incorrect.";
                     return RedirectToAction("Login");
                 }
+            }
+            else
+            {
+                TempData["LoginError"] = "Username or password is incorrect.";
             }
             return View(data);
         }
@@ -95,11 +123,49 @@ namespace OnlineBookStoreManagementSystem.Controllers
         }
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove("Username");
+            //HttpContext.Session.Remove("Username");
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
 
- 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateMyAccount(AccountUpdate data)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _db.Accounts.Find(data.Id);
+                if (user != null)
+                {
+                    user.FirstName = data.FirstName;
+                    user.LastName = data.LastName;
+                    user.Email = data.Email;
+                    user.Phone = data.Phone;
+                    user.Username = data.Username;
+                    user.Address = data.Address;
+
+                    _db.SaveChanges();
+                    HttpContext.Session.SetString("Username", user.FirstName + " " + user.LastName);
+                    TempData["msgSucc"] = "บันทึกข้อมูลเรียบร้อย!";
+                }
+                else
+                {
+                    TempData["msgErr"] = "ไม่พบผู้ใช้นี้";
+                }
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    TempData["msgErr"] += error.ErrorMessage + " ";  
+                }
+                
+            }
+            return RedirectToAction("Index");
+        }
+
+
         public static string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
