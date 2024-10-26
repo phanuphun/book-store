@@ -165,6 +165,51 @@ namespace OnlineBookStoreManagementSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Users(int page = 1, int pageSize = 10)
+        {
+            IEnumerable<Account> users = _db.Accounts;
+
+            // get all totaluser
+            var totalUsers = users.Count();
+            // calculate page by totalUsers / pagesize e.g. 5/2 = 2.5 pages 
+            // when result is an odd numbers use math and ceiling up e.g. 5/2 = 3 pages
+            // use (int) pase from double to int
+            var totalPages = (int)Math.Ceiling(totalUsers / (double)pageSize);
+
+
+            // get user on page
+            // use .skip() for skip data by (page-1)*pagesize 
+            // and use .take() for limit data
+            // e.g. page 1 : (1-1)*2 = 0 data // no need to skip any data
+            // e.g. page 2 : (2-1)*2 = 2 data // now we need to skip 2 data and get next 2 data
+            // e.g. page 3 : (3-1)*2 = 4 data // skip 4 data and get 2 next data
+            var usersOnPage = users.Skip((page - 1) * pageSize).Take(pageSize);
+
+            // use ViewBag for send obj from controller to View
+            ViewBag.TotalPages = totalPages; 
+            ViewBag.CurrentPage = page;
+
+            return View(usersOnPage);
+        }
+
+        public IActionResult DeleteAccount(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var user = _db.Accounts.Find(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _db.Accounts.Remove(user);
+            _db.SaveChanges();
+
+            return RedirectToAction("Users");
+        }
 
         public static string HashPassword(string password)
         {

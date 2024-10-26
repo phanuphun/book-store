@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - F1rst Book</title>
+    <title>@ViewData["Title"] | F1RST BOOK</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OnlineBookStoreManagementSystem.styles.css" asp-append-version="true" />
@@ -18,8 +18,9 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-primary bg-white border-bottom box-shadow">
             <div class="container-fluid">
-                <a class="navbar-brand fs-3 fw-bold d-flex item-align-end text-primary" href="/index.html">
-                    <span class="px-2">F1rst-Book</span>
+                <a style="margin-left: 10px;"
+                    class="navbar-brand fs-3 fw-bold d-flex item-align-end text-primary" href="/index.html">
+                    <img src="/logo.png" height="70" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -30,12 +31,7 @@
                     {
                         <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
                             <li class="nav-item">
-                                <span class="nav-link text-dark fw-bold">
-                                    @username
-                                </span>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="#" onclick="logout();">Logout</a>
+                                <a class="nav-link text-dark" href="#" onclick="logout();">ออกจากระบบ</a>
                             </li>
                         </ul>
                     }
@@ -44,12 +40,12 @@
                         <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">
-                                    Login
+                                    เข้าสู่ระบบ
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">
-                                    Register
+                                    สมัครสมาชิก
                                 </a>
                             </li>
                         </ul>
@@ -60,19 +56,19 @@
         <div class="d-flex flex-wrap justify-content-center justify-content-sm-end bg-dark">
             <div class="d-flex justify-content-center item-align-center p-3">
                 <a href="/" class=" text-light" style="text-decoration:none;">
-                    Home
+                    หน้าแรก
                 </a>
             </div>
             <div class="d-flex justify-content-center item-align-center p-3">
                 <a href="/" class=" text-light" style="text-decoration:none;">
-                    Books
+                    หนังสือ
                 </a>
             </div>
             @if (status == "Customer")
             { 
             <div class="d-flex justify-content-center item-align-center p-3">
                 <a href="/" class=" text-light" style="text-decoration:none;">
-                    My Order
+                    คำสั่งซื้อของฉัน
                 </a>
             </div>
             }
@@ -80,17 +76,17 @@
             {              
             <div class="d-flex justify-content-center item-align-center p-3">
                 <a href="#" class=" text-light" style="text-decoration:none;">
-                    Stock
+                    สต๊อกสินค้า
                 </a>
             </div>
             <div class="d-flex justify-content-center item-align-center p-3">
                 <a href="#" class=" text-light" style="text-decoration:none;">
-                    Orders
+                    คำสั่งซื้อ
                 </a>
             </div>
             <div class="d-flex justify-content-center item-align-center p-3">
-                <a href="#" class=" text-light" style="text-decoration:none;">
-                    Users
+                <a asp-controller="Account" asp-action="Users"  class=" text-light" style="text-decoration:none;">
+                    ผู้ใช้งาน
                 </a>
             </div>
             }
@@ -98,7 +94,7 @@
             {
             <div class="d-flex justify-content-center item-align-center p-3">
                 <a asp-controller="Account" asp-action="Index" class=" text-light" style="text-decoration:none;">
-                    My Account
+                    บัญชีของฉัน
                 </a>
             </div>
             }
@@ -112,7 +108,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Phanuphun Namwong
+            &copy; 2024 - F1RST BOOK
         </div>
     </footer>
 

@@ -12,7 +12,7 @@
     <div class="container border rounded d-flex flex-column justify-content-center align-items-center bg-white"
          style="width: auto; max-width: 450px;">
         <div class="border-4 pt-4 w-100 text-center">
-            <h3 class="fw-bold text-primary ">LOGIN FORM</h3>
+            <h3 class="fw-bold text-primary ">เข้าสู่ระบบ</h3>
             <hr>
         </div>
         @if (!string.IsNullOrEmpty(errMsg))
@@ -25,26 +25,26 @@
         <div class="w-100">
             <form method="POST" asp-controller="Account" asp-action="Login" class="row pb-4 gy-2 gx-4">
                 <div class="col-12">
-                    <label asp-for="Username" class="form-label">Username</label>
+                    <label asp-for="Username" class="form-label"></label>
                     <input asp-for="Username" type="text" class="form-control" style="background-color:#f9fafb;">
                 </div>
                 <div class="col-12">
-                    <label asp-for="Password" class="form-label">Password</label>
+                    <label asp-for="Password" class="form-label"></label>
                     <input asp-for="Password" type="password" class="form-control" style="background-color:#f9fafb;">
                 </div>
 
                 <div class=" w-100 mt-4 py-2 mt-5">
                     <button id="liveToastBtn"
                             class="btn btn-primary btn-md px-4 w-100 rounded" type="submit">
-                        LOGIN
+                        เข้าสู่ระบบ
                     </button>
                 </div>
                 <hr class="">
                 <div class="w-100  d-flex justify-content-center">
-                    Apply for a new member <a class="px-2" asp-action="Register"> click here.</a>
+                    ยังไม่มีบัญชีใช่ไหม? <a class="px-2" asp-action="Register"> สมัครสมาชิก.</a>
                 </div>
                 <div class="w-100 d-flex justify-content-center">
-                    <a class="px-2" asp-controller="Book" asp-action="Index"> Back to home </a>
+                    <a class="px-2" asp-controller="Book" asp-action="Index"> กลับสู่หน้าแรก </a>
                 </div>
             </form>
         </div>
