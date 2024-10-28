@@ -1,0 +1,106 @@
+﻿
+@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "หมวดหมู่";
+    Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
+    var msgSucc = TempData["DelSucc"]as string;
+    var categories = Model.ToList();
+}
+
+
+<div class="my-4">
+    <div class="my-4">
+        <div class="d-flex justify-content-between align-items-end px-1">
+            <h4 class="">หมวดหมู่หนังสือ</h4>
+            <a asp-controller="Book" asp-action="AddCategory" class="btn btn-success">
+                + เพิมหมวดหมู่
+            </a>
+        </div>
+        <div class="border mt-2" style="height: 1px;"></div>
+    </div>
+    @if (!string.IsNullOrEmpty(msgSucc))
+    {
+        <div class="alert alert-success" role="alert">
+            @msgSucc
+        </div>
+    }
+    @if (Model.Count() > 0)
+    {
+        
+    <table class="table table-bordered  table-hover ">
+        <thead class="">
+            <tr>
+                <th>ลำดับ</th>
+                <th>หมวดหมู่</th>
+                <th class="text-center">แก้ไข</th>
+                <th class="text-center">ลบ</th>
+            </tr>
+        </thead>
+        <tbody>
+                @for (int i = 0; i < categories.Count ; i++)
+            {
+                <tr>
+                    <td class="text-center"> @(ViewBag.CurrentIndexItem + (i+1))</td>
+                    <td class="w-100">@categories[i].Name</td>
+                    <td>
+                        <a asp-controller="Book" asp-action="UpdateCategory" asp-route-id="@categories[i].Id"
+                            class="btn btn-outline-primary w-100">
+                            แก้ไข
+                        </a>
+                    </td>
+                    <td>
+                        <a onClick="deleteAccount(@categories[i].Id)"
+                        class="btn btn-outline-danger w-100">
+                        ลบ
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+        <div class="d-flex justify-content-end w-100">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <!-- if cuuren page > 1 then show previous page -->
+                    <li class="page-item @((ViewBag.CurrentPage == 1) ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Category", new { page = ViewBag.CurrentPage - 1 })">ก่อนหน้า</a>
+                    </li>
+                    @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Category", new { page = i })">@i</a>
+                        </li>
+                    }
+
+                    <!-- if cuuren page < totalpages then hidding newxt page -->
+                    <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages?"disabled" :"")">
+                        <a class="page-link" href="@Url.Action("Category", new { page = ViewBag.CurrentPage + 1 })">ถัดไป</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-primary" role="alert">
+            ยังไม่มีหมวดหมู่หนังสือกรุณาเพิ่มก่อน
+        </div>
+    }
+</div>
+
+<script>
+    function deleteAccount(id) {
+        Swal.fire({
+            title: "ต้องการลบหมวดหมู่ใช่ไหม",
+            showCancelButton: true,
+            confirmButtonText: "ลบหมวดหมู่",
+            cancelButtonText: "ยกเลิก",
+            confirmButtonColor: '#ef4444'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `@Url.Action("DeleteCategory", "Book")?id=${id}`;
+            }
+        });
+    }
+</script>

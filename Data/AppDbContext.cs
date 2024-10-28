@@ -24,5 +24,7 @@ namespace OnlineBookStoreManagementSystem.Data
          * DbSet<T> ใช้แทน "ตาราง" ในฐานข้อมูล โดยที่ T คือตัวอย่างของโมเดล (Model Class) ที่เราใช้
          */
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Book> Books { get; set; } 
+        public DbSet<Category> Categories { get; set; }
     }
 }

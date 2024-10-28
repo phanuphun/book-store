@@ -6,7 +6,8 @@
     var idString = Context.Session.GetString("Id");
     int id;
     bool isValidId = int.TryParse(idString, out id);
-
+    var users = Model.ToList();
+     
 }
 
             <div class="my-4">
@@ -22,9 +23,8 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>ไอดี</th>
-                                <th>ชื่อ</th>
-                                <th>นามสกุล</th>
+                                <th>ลำดับ</th>
+                                <th>ชื่อ - นามสกุล</th>
                                 <th>ชื่อผู้ใช้งาน</th>
                                 <th>อีเมล</th>
                                 <th>เบอร์ติดต่อ</th>
@@ -33,23 +33,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var user in Model)
+                            @for (int i = 0 ; i < users.Count; i++)
                             {
                             <tr>
-                                <td>@user.Id</td>
-                                <td>@user.FirstName</td>
-                                <td>@user.LastName</td>
-                                <td>@user.Username</td>
-                                <td>@user.Email</td>
-                                <td>@user.Phone</td>
-                                <td>@user.Address</td>
+                                <td>@(ViewBag.CurrentIndexItem + (i+1))</td>
+                                <td>@users[i].FirstName @users[i].LastName</td>
+                                <td>@users[i].Username</td>
+                                <td>@users[i].Email</td>
+                                <td>@users[i].Phone</td>
+                                <td>@users[i].Address</td>
                                 <td>
-                            @if (id != user.Id)
+                            @if (id != users[i].Id)
                             {
-                                
-                                
-                                <a 
-                                    onClick="deleteAccount(@user.Id)"
+                                <a onClick="deleteAccount(@users[i].Id)"
                                     class="btn btn-outline-danger w-100">
                                     ลบ
                                 </a>
@@ -94,7 +90,7 @@
 <script>
     function deleteAccount(id) {
         Swal.fire({
-            title: "ต้องารลบผู้ใช้งานใช่ไหม?",
+            title: "ต้องการลบผู้ใช้งานใช่ไหม?",
             showCancelButton: true,
             confirmButtonText: "ลบบัญชี",
             cancelButtonText: "ยกเลิก",

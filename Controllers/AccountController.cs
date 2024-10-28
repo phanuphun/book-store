@@ -4,7 +4,6 @@ using OnlineBookStoreManagementSystem.Models;
 using System.Text;
 using System.Security.Cryptography;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 namespace OnlineBookStoreManagementSystem.Controllers
 {
@@ -18,8 +17,6 @@ namespace OnlineBookStoreManagementSystem.Controllers
         {
             _db = db;
         }
-
-
 
         public IActionResult Login() 
         {
@@ -43,13 +40,13 @@ namespace OnlineBookStoreManagementSystem.Controllers
                 }
                 else
                 {
-                    TempData["LoginError"] = "Username or password is incorrect.";
+                    TempData["LoginError"] = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง";
                     return RedirectToAction("Login");
                 }
             }
             else
             {
-                TempData["LoginError"] = "Username or password is incorrect.";
+                TempData["LoginError"] = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง";
                 return RedirectToAction("Login");
             }
             return View(data);
@@ -149,7 +146,13 @@ namespace OnlineBookStoreManagementSystem.Controllers
                 ModelState.Remove("Phone");
                 data.Phone = "";
             }
-           
+
+            if (string.IsNullOrWhiteSpace(data.LastName))
+            {
+                ModelState.Remove("LastName");
+                data.LastName = "";
+            }
+
             if (string.IsNullOrWhiteSpace(data.Address))
             {
                 ModelState.Remove("Address");
@@ -200,11 +203,12 @@ namespace OnlineBookStoreManagementSystem.Controllers
             // e.g. page 2 : (2-1)*2 = 2 data // now we need to skip 2 data and get next 2 data
             // e.g. page 3 : (3-1)*2 = 4 data // skip 4 data and get 2 next data
             var usersOnPage = users.Skip((page - 1) * pageSize).Take(pageSize);
+            var currentIndexItem = (page - 1) * pageSize;
 
             // use ViewBag for send obj from controller to View
             ViewBag.TotalPages = totalPages; 
             ViewBag.CurrentPage = page;
-
+            ViewBag.CurrentIndexItem = currentIndexItem;
             return View(usersOnPage);
         }
 

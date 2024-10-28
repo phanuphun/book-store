@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Category;
+
+@{
+    ViewData["Title"] = "เพิ่มหมวดหมู่";
+    Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
+    var msgSucc = TempData["AddCateSucc"] as string;
+    var msgErr = TempData["AddCateErr"] as string;
+}
+
+<div class="my-4">
+    <div class="my-4">
+        <div class="d-flex justify-content-between align-items-end px-1">
+            <h4 class="">เพิ่มหมวดหมู่</h4>
+        </div>
+        <div class="border mt-2" style="height: 1px;"></div>
+    </div>
+</div>
+<div>
+    @if (!string.IsNullOrEmpty(msgErr))
+    {
+        <div class="alert alert-danger" role="alert">
+            @msgErr
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(msgSucc))
+    {
+        <div class="alert alert-success" role="alert">
+            @msgSucc
+        </div>
+    }
+    
+    
+    <form asp-controller="Book" asp-action="AddCategory" method="POST">
+        <input type="text" asp-for="Name" class="form-control" placeholder="เพิ่มชื่อหมวดหมู่">
+        <div class="w-100 d-flex justify-content-end my-2">
+            <a asp-controller="Book" asp-action="Category" class="btn btn-secondary"> ยกเลิก </a>
+            <button class="btn btn-primary px-4" type="submit" style="margin-left: 10px;">
+                เพิ่ม
+            </button>
+        </div>
+    </form>
+</div>
