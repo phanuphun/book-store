@@ -2,86 +2,95 @@
 
 @{
     ViewData["Title"] = "ผู้ใช้งาน";
+    Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
+    var idString = Context.Session.GetString("Id");
+    int id;
+    bool isValidId = int.TryParse(idString, out id);
+
 }
 
-<div class="container border rounded my-4 px-4">
-    <main role="main" class="">
-        <div class="border-4 pt-4 w-100 ">
-            <h2 class="fw-bold text-primary ">รายชื่อผู้ใช้งาน</h2>
-            <hr />
+            <div class="my-4">
+                <div class="d-flex justify-content-between align-items-end px-1">
+                    <h4 class="">รายชื่อผู้ใช้งาน</h4>
+
+                </div>
+                <div class="border" style="height: 1px;"></div>
             </div>
-        @if (Model.Count() > 0)
-        {
-            <div class="">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>ไอดี</th>
-                            <th>ชื่อ</th>
-                            <th>นามสกุล</th>
-                            <th>ชื่อผู้ใช้งาน</th>
-                            <th>อีเมล</th>
-                            <th>เบอร์ติดต่อ</th>
-                            <th>ที่อยู่</th>
-                            <th class="text-center">ลบ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var user in Model)
-                        {
-                        <tr>
-                            <td>@user.Id</td>
-                            <td>@user.FirstName</td>
-                            <td>@user.LastName</td>
-                            <td>@user.Username</td>
-                            <td>@user.Email</td>
-                            <td>@user.Phone</td>
-                            <td>@user.Address</td>
-                            <td>
+            @if (Model.Count() > 0)
+            {
+                <div class="">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ไอดี</th>
+                                <th>ชื่อ</th>
+                                <th>นามสกุล</th>
+                                <th>ชื่อผู้ใช้งาน</th>
+                                <th>อีเมล</th>
+                                <th>เบอร์ติดต่อ</th>
+                                <th>ที่อยู่</th>
+                                <th class="text-center">ลบ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
+                                <td>@user.Username</td>
+                                <td>@user.Email</td>
+                                <td>@user.Phone</td>
+                                <td>@user.Address</td>
+                                <td>
+                            @if (id != user.Id)
+                            {
+                                
+                                
                                 <a 
                                     onClick="deleteAccount(@user.Id)"
                                     class="btn btn-outline-danger w-100">
                                     ลบ
                                 </a>
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-end w-100">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <!-- if cuuren page > 1 then show previous page -->
-                        <li class="page-item @((ViewBag.CurrentPage == 1) ? "disabled" : "")">
-                            <a class="page-link" href="@Url.Action("Users", new { page = ViewBag.CurrentPage - 1 })">ก่อนหน้า</a>
-                        </li>
-                         
-
-                        @for (var i = 1; i <= ViewBag.TotalPages; i++)
-                        {
-                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                <a class="page-link" href="@Url.Action("Users", new { page = i })">@i</a>
+                            }
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-end w-100">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <!-- if cuuren page > 1 then show previous page -->
+                            <li class="page-item @((ViewBag.CurrentPage == 1) ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("Users", new { page = ViewBag.CurrentPage - 1 })">ก่อนหน้า</a>
                             </li>
-                        }
-
-                        <!-- if cuuren page < totalpages then hidding newxt page -->
-                        <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages?"disabled" :"")">
-                            <a class="page-link" href="@Url.Action("Users", new { page = ViewBag.CurrentPage + 1 })">ถัดไป</a>
-                        </li>
                          
-                    </ul>
-                </nav>
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-primary" role="alert">
-                ไม่มีข้อมูลผู้ใช้งาน
-            </div>
-        }
-    </main>
-</div>
+
+                            @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Users", new { page = i })">@i</a>
+                                </li>
+                            }
+
+                            <!-- if cuuren page < totalpages then hidding newxt page -->
+                            <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages?"disabled" :"")">
+                                <a class="page-link" href="@Url.Action("Users", new { page = ViewBag.CurrentPage + 1 })">ถัดไป</a>
+                            </li>
+                         
+                        </ul>
+                    </nav>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-primary" role="alert">
+                    ไม่มีข้อมูลผู้ใช้งาน
+                </div>
+            }
 <script>
     function deleteAccount(id) {
         Swal.fire({

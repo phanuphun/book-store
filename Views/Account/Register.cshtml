@@ -7,8 +7,8 @@
 }
 
 <div class="w-100 h-100 min-vh-100 py-5 d-flex flex-column justify-content-center item-align-center
-    bg-secondary bg-md-danger">
-    <div class="container border rounded d-flex flex-column justify-content-center align-items-center bg-white"
+    bg-light bg-md-danger">
+    <div class="container border boreder-3 rounded d-flex flex-column justify-content-center align-items-center bg-white"
          style="width: auto; max-width: 600px;">
         <div class="border-4 pt-4 w-100 text-center">
             <h3 class="fw-bold text-primary ">สมัครสมาชิก</h3>
@@ -45,7 +45,8 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <label asp-for="Phone" class="px-1"></label>
-                    <input asp-for="Phone" type="text" class="form-control" style="background-color:#f9fafb;" />
+                    <input asp-for="Phone" type="text" data-val="false"
+                    class="form-control" maxlength="10" style="background-color:#f9fafb;"/>
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
                 <div class="col-12">

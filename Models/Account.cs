@@ -12,21 +12,21 @@ namespace OnlineBookStoreManagementSystem.Models
         [DisplayName("รหัสผู้ใช้งาน")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "กรุณาป้อนข้อมูล")]
+        [Required(ErrorMessage = "กรุณาป้อนชื่อ")]
         [DisplayName("ชื่อ")]
         public string FirstName {  get; set; }
 
         [DisplayName("นามสกุล")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "กรุณาป้อนข้อมูล")]
+        [Required(ErrorMessage = "กรุณาป้อนอีเมล")]
         [EmailAddress(ErrorMessage = "กรุณากรอกอีเมลให้ถูกต้อง")]
         [DisplayName("อีเมล")]
         public string Email { get; set; }
 
         [DisplayName("เบอร์โทรศัพท์")]
-        [RegularExpression(@"^\+?[0-9]{10,15}$", ErrorMessage = "รูปแบบเบอร์โทรศัพท์ไม่ถูกต้อง")]
-        public string Phone {  get; set; }
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "เบอร์โทรศัพท์ต้องเป็นตัวเลข 10 หลัก")]
+        public string Phone { get; set; }
 
         [Required(ErrorMessage = "กรุณาป้อนชื่อผู้ใช้งาน")]
         [StringLength(100, MinimumLength = 4, ErrorMessage = "ชื่อผู้ใช้งานต้องมีความยาวระหว่าง 4 ถึง 100 ตัวอักษร")]
@@ -49,7 +49,6 @@ namespace OnlineBookStoreManagementSystem.Models
 
         [DisplayName("สถานะ")]
         public string Status { get; set; }
-
 
         public Account()
         {

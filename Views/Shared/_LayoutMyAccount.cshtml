@@ -1,0 +1,28 @@
+﻿ 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container ">
+    <div class="w-100 h-100 d-flex mt-4">
+        <div class="col-3" style="padding-right: 10px;">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a asp-controller="Account" asp-action="UpdateMyAccount" 
+                    class="text-dark" style="text-decoration: none;">
+                        <i class="bi bi-person"></i> บัญชีของฉัน
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#" class="text-dark" style="text-decoration: none;">
+                        <i class="bi bi-bag"></i> รายการสั่งซื้อของฉัน
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-9 px-4 border rounded">
+            @RenderBody()
+        </div>
+    </div>
+</div>
