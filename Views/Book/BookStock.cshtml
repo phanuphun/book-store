@@ -1,0 +1,63 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
+}
+
+<div class="my-4">
+    <div class="my-4">
+        <div class="d-flex justify-content-between align-items-end px-1">
+            <h4 class="">รายการหนังสือ</h4>
+            <a asp-controller="Book" asp-action="AddBook" class="btn btn-success">
+                + เพิ่มหนังสือ
+            </a>
+        </div>
+        <div class="border mt-2" style="height: 1px;"></div>
+    </div>
+    <table class="table table-hover ">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>ปกหนังสือ</th>
+                <th>ชื่อหนังสือ</th>
+                <th>จำนวน</th>
+                <th class="text-center">แก้ไข</th>
+                <th class="text-center">ลบ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>
+                    <img src="https://i.pinimg.com/236x/76/db/68/76db6885c6dab57e0eca2ea33371c2cd.jpg"
+                         width="70" class="border rounded" alt="">
+                </td>
+                <td class="w-100">HE CALLED ME BLUE ROSSES</td>
+                <td class="text-center">
+                    20
+                </td>
+                <td>
+                    <a href="/editBook.html" class="btn btn-sm btn-outline-primary">
+                        แก้ไข
+                    </a>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-outline-danger">
+                        ลบ
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <div class="w-100 my-3 d-flex justify-content-end">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">ก่อนหน้า</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">หน้าถัดไป</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

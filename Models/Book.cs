@@ -7,42 +7,46 @@ namespace OnlineBookStoreManagementSystem.Models
     public class Book
     {
         [Key , DisplayName("รหัสหนังสือ")]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage ="กรุณาเพิ่มภาพหน้าปกหนังสือ"),DisplayName("ภาพหน้าปกหนังสือ")]
-        public string image { get; set; }
+        public string Image { get; set; }
 
-        [Required(ErrorMessage ="กรุป้อนชื่อหนังสือ"),DisplayName("ชื่อหนังสือ")]
-        public string title { get; set; }
+        [Required(ErrorMessage ="กรุณาป้อนชื่อหนังสือ"),DisplayName("ชื่อหนังสือ")]
+        public string Title { get; set; } 
 
         [DisplayName("รายละเอียด")]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         [Required(ErrorMessage = "กรุณาป้อนชื่อผู้เขียน"), DisplayName("ผู้เขียน")]
-        public string author { get; set; }
+        public string Author { get; set; }
 
         [DisplayName("นักวาด")]
-        public string drawer { get; set; }
+        public string Drawer { get; set; }
 
         [DisplayName("ผู้แปล")]
-        public string translater { get; set; }
+        public string Translater { get; set; }
 
         [Required(ErrorMessage = "กรุณาป้อนราคา"), DisplayName("ราคา")]
-        public double price { get; set; }
+        [Range(1, double.MaxValue, ErrorMessage = "กรุณาป้อนราคาให้ถูกต้อง หรือมากกว่า 0")]
+        public double Price { get; set; }
 
         [DisplayName("จำนวนหน้า")]
-        public int pages { get; set; }
+        public string Pages { get; set; }
 
         [DisplayName("ความหนา/สูง")]
-        public string thickness { get; set;}
+        public string Thickness{ get; set;}
+
+        [DisplayName("น้ำหนัก")]
+        public string Weight { get; set; }
 
         [Required(ErrorMessage = "กรุณาป้อนจำนวนหนังสือในสตอก"), DisplayName("จำนวนหนังสือ")]
-        public int amount {  get; set; }
+        public int Amount {  get; set; }
 
         [DisplayName("ขนาดของหนังสือ(กxย)")]
-        public string size { get; set; }
+        public string Size { get; set; }
 
-        [DisplayName("หมวดหมู่")]
+        [Required(ErrorMessage ="กรุณาเลือกหมวดหมู่") , DisplayName("หมวดหมู่")]
         public int CategoryId { get; set; }
 
         [ForeignKey("CategoryId")]

@@ -52,7 +52,6 @@ namespace OnlineBookStoreManagementSystem.Models
 
         public Account()
         {
-            // ตั้งค่าเริ่มต้นให้เป็น Customer
             Status = "Customer";
         }
     }
