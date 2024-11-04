@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineBookStoreManagementSystem.Data;
+using OnlineBookStoreManagementSystem.Migrations;
 using OnlineBookStoreManagementSystem.Models;
 using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -43,7 +44,7 @@ namespace OnlineBookStoreManagementSystem.Controllers
             var categories = _db.Categories.ToList();
             var bookView = new BookView
             {
-                Book = new BookDTO(),  // หรือกำหนดค่าเริ่มต้นถ้ามี
+                Book = new BookDTO(), 
                 Categories = categories
             };
 
@@ -124,20 +125,172 @@ namespace OnlineBookStoreManagementSystem.Controllers
             return RedirectToAction("AddBook");
         }
 
+        public IActionResult EditBook(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var book = _db.Books.Find(id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var categories = _db.Categories.ToList();
+            var bookView = new BookView
+            {
+                Book = new BookDTO()
+                {
+                    Id = book.Id,
+                    ImagePath = book.Image,
+                    Title = book.Title,
+                    Description = book.Description,
+                    Author = book.Author,
+                    Drawer = book.Drawer,
+                    Translater = book.Translater,
+                    Price = book.Price,
+                    Pages = book.Pages,
+                    Thickness = book.Thickness,
+                    Weight = book.Weight,
+                    Amount = book.Amount,
+                    Size = book.Size,
+                    CategoryId = book.CategoryId
+                }, 
+                Categories = categories
+            };
+
+            return View(bookView);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditBook(BookView BookData)
+        {
+            // remove fields 
+            var fieldsToRemove = new List<string> {
+                "Book.Description",
+                "Book.Drawer",
+                "Book.Translater",
+                "Book.Pages",
+                "Book.Image",
+                "Book.ImagePath",
+                "Book.Thickness",
+                "Book.Weight",
+                "Book.Size",
+                "Book.Categories",
+                "Book.Category",
+                "Categories"
+            };
+
+            foreach (var field in fieldsToRemove)
+            {
+                ModelState.Remove(field);
+            }
+
+            var Book = _db.Books.Find(BookData.Book.Id);
+
+            if (BookData.Book.Id == null)
+            {
+                return RedirectToAction("EditBook");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // ดึงข้อผิดพลาดจาก ModelState และรวมเป็นข้อความเดียว
+                var errorMessages = ModelState.Values
+                                    .SelectMany(v => v.Errors)
+                                    .Select(e => e.ErrorMessage)
+                                    .ToList();
+
+                // รวมข้อผิดพลาดทั้งหมดเป็นข้อความเดียวแล้วเก็บใน TempData
+                TempData["EditBookErr"] = string.Join("<br>", errorMessages);
+                BookData.Book.ImagePath = Book.Image;
+                BookData.Categories = _db.Categories.ToList();
+                return View(BookData);
+            }
+
+            // set the same name 
+            string newFileName = Book.Image;
+            // if image update set the new file name 
+            if (BookData.Book.Image != null)
+            {
+                newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                newFileName += Path.GetExtension(BookData.Book.Image!.FileName);
+
+                string imageFullPath = environment.WebRootPath + "/bookCovers/" + newFileName;
+                using (var straem = System.IO.File.Create(imageFullPath))
+                {
+                    BookData.Book.Image.CopyTo(straem);
+                }
+                // after upload to folder succ then delete old image
+
+                string oldImagePath = environment.WebRootPath + "/bookCovers/" + BookData.Book.ImagePath;
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
+
+            Book.Image = newFileName;
+            Book.Title = BookData.Book.Title;
+            Book.Description = BookData.Book.Description ?? "";
+            Book.Author = BookData.Book.Author ?? "";
+            Book.Drawer = BookData.Book.Drawer ?? "";
+            Book.Translater = BookData.Book.Translater ?? "";
+            Book.Price = BookData.Book.Price;
+            Book.Pages = BookData.Book.Pages ?? "";
+            Book.Thickness = BookData.Book.Thickness ?? "";
+            Book.Weight = BookData.Book.Weight ?? "";
+            Book.Size = BookData.Book.Size ?? "";
+            Book.CategoryId = BookData.Book.CategoryId;
+
+            _db.SaveChanges();
+
+            TempData["EditBookSucc"] = "บันทึกข้อมูลเรียบร้อย";
+            return RedirectToAction("EditBook", new { id = BookData.Book.Id });
+        }
+
+
         public IActionResult Category(int page = 1, int pageSize = 20)
         {
             IEnumerable<Category> categories = _db.Categories;
             var totalCategory = categories.Count();
             var totalPages = (int)Math.Ceiling(totalCategory / (double)pageSize);
             var categoriesOnPage = categories.Skip((page - 1) * pageSize).Take(pageSize);
-            
             var currentIndexItem = (page - 1) * pageSize;
-      
 
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
             ViewBag.CurrentIndexItem = currentIndexItem;
             return View(categoriesOnPage);
+        }
+
+        public IActionResult DeleteBook(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var book = _db.Books.Find(id)!;
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var coverPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "bookCovers", book.Image);
+            if (System.IO.File.Exists(coverPath))
+            {
+                System.IO.File.Delete(coverPath);  
+            }
+
+            _db.Books.Remove(book);
+            _db.SaveChanges();
+
+            TempData["DelSucc"] = "ลบหนังสือเรียบร้อย";
+            return RedirectToAction("BookStock");
         }
 
         public IActionResult AddCategory()

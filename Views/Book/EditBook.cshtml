@@ -1,16 +1,16 @@
 ﻿@model BookView;
- 
+
 @{
-    ViewData["Title"] = "เพิ่มหนังสือ";
+    ViewData["Title"] = "แก้ไขหนังสือ";
     Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
-    var msgErr = TempData["AddBookErr"] as string;
-    var msgSucc = TempData["AddBookSucc"] as string;
+    var msgErr = TempData["EditBookErr"] as string;
+    var msgSucc = TempData["EditBookSucc"] as string;
 }
 
 <div class="my-4">
     <div class="my-4">
         <div class="d-flex justify-content-between align-items-end px-1">
-            <h4 class="">เพิ่มหนังสือ</h4>
+            <h4 class="">แก้ไขหนังสือ</h4>
         </div>
         <div class="border mt-2" style="height: 1px;"></div>
     </div>
@@ -28,25 +28,32 @@
     </div>
 }
 <div class="w-100">
-    <form novalidate method="POST" asp-controller="Book" asp-action="AddBook" enctype="multipart/form-data"
-    class="row gy-2 gx-4">
-        <div class="col-12">
-            <label asp-for="Book.Title" class="px-1" ></label>
-            <input asp-for="Book.Title" type="text" class="form-control"/>
-            <span asp-validation-for="Book.Title" class="text-danger"></span>
+    <form method="POST" asp-controller="Book" asp-action="EditBook" enctype="multipart/form-data"
+        class="row gy-2 gx-4">
+        <input type="hidden" asp-for="Book.Id"/>
+        <div class="col-3 d-flex justify-content-center border rounded">
+            <img src="/bookCovers/@Model.Book.ImagePath"
+                 class="" height="300" alt="">
         </div>
-        <div class="col-12">
-            <label asp-for="Book.Description" class="px-1"></label>
-            <textarea asp-for="Book.Description" class="form-control" ></textarea>
+        <div class="col-9">
+            <div class="col-12">
+                <label asp-for="Book.Title" class="px-1"></label>
+                <input asp-for="Book.Title" type="text" class="form-control" />
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="Book.Description" class="px-1"></label>
+                <textarea asp-for="Book.Description" class="form-control" rows="9"></textarea>
+            </div>
         </div>
         <div class="col-12">
             <label asp-for="Book.Image" class="px-1"></label>
-            <input asp-for="Book.Image" type="file" class="form-control"/>
+            <input asp-for="Book.Image" type="file" class="form-control" />
             <span asp-validation-for="Book.Image" class="text-danger"></span>
         </div>
         <div class="col-12">
             <label asp-for="Book.CategoryId" class="px-1"></label>
-            <select asp-for="Book.CategoryId" class="form-select" >
+            <select asp-for="Book.CategoryId" class="form-select">
                 @foreach (var category in Model.Categories)
                 {
                     <option value="@category.Id">@category.Name</option>
@@ -54,49 +61,51 @@
             </select>
             <span class="text-danger" asp-validation-for="Book.CategoryId"></span>
         </div>
+
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Author" class="px-1"></label>
-            <input asp-for="Book.Author" type="text" class="form-control"  />
+            <input asp-for="Book.Author" type="text" class="form-control" />
             <span asp-validation-for="Book.Author" class="text-danger"></span>
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Translater" class="px-1"></label>
-            <input asp-for="Book.Translater" type="text" class="form-control"/>
+            <input asp-for="Book.Translater" type="text" class="form-control" />
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Drawer" for="" class="px-1"></label>
-            <input asp-for="Book.Drawer" type="text" class="form-control"/>
+            <input asp-for="Book.Drawer" type="text" class="form-control" />
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Price" for="" class="px-1">ราคา</label>
-            <input asp-for="Book.Price" type="text" class="form-control"/>
+            <input asp-for="Book.Price" type="text" class="form-control" />
             <span asp-validation-for="Book.Price" class="text-danger"></span>
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Amount" class="px-1"></label>
-            <input asp-for="Book.Amount" type="text" class="form-control"/>
+            <input asp-for="Book.Amount" type="text" class="form-control" />
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Pages" class="px-1"></label>
-            <input asp-for="Book.Pages" type="text" class="form-control"/>
+            <input asp-for="Book.Pages" type="text" class="form-control" />
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Thickness" class="px-1"></label>
-            <input asp-for="Book.Thickness" type="text" class="form-control"/>
+            <input asp-for="Book.Thickness" type="text" class="form-control" />
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Weight" class="px-1">น้ำหนัก</label>
-            <input asp-for="Book.Weight" type="text" class="form-control"/>
+            <input asp-for="Book.Weight" type="text" class="form-control" />
 
         </div>
         <div class="col-12 col-sm-6">
             <label asp-for="Book.Size" class="px-1">ขนาด</label>
-            <input asp-for="Book.Size" type="text" class="form-control" placeholder="ความกว้าง x ความสูง"/>
+            <input asp-for="Book.Size" type="text" class="form-control" placeholder="ความกว้าง x ความสูง" />
         </div>
+
 
         <div class="py-3 w-100 d-flex justify-content-end">
             <a asp-controller="Book" asp-action="BookStock" class="px-4 btn btn-secondary">ยกเลิก</a>
-            <button class="px-4 btn btn-primary " type="submit"  style="margin-left: 10px;">เพิ่มหนังสือ</button>
+            <button class="px-4 btn btn-primary " type="submit" style="margin-left: 10px;">บันทึก</button>
         </div>
     </form>
 </div>

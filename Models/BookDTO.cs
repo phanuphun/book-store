@@ -10,7 +10,9 @@ namespace OnlineBookStoreManagementSystem.Models
         public int Id { get; set; } 
 
         [Required(ErrorMessage = "กรุณาเพิ่มภาพหน้าปกหนังสือ"), DisplayName("ภาพหน้าปกหนังสือ")]
-        public IFormFile Image { get; set; }   
+        public IFormFile? Image { get; set; }
+
+        public string? ImagePath { get; set; }
 
         [Required(ErrorMessage = "กรุณาป้อนชื่อหนังสือ"), DisplayName("ชื่อหนังสือ")]
         public string Title { get; set; }  

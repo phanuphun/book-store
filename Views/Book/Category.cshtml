@@ -49,9 +49,9 @@
                         </a>
                     </td>
                     <td>
-                        <a onClick="deleteAccount(@categories[i].Id)"
+                        <a onClick="deleteCategory(@categories[i].Id)"
                         class="btn btn-outline-danger w-100">
-                        ลบ
+                            ลบ
                         </a>
                     </td>
                 </tr>
@@ -76,7 +76,6 @@
                     <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages?"disabled" :"")">
                         <a class="page-link" href="@Url.Action("Category", new { page = ViewBag.CurrentPage + 1 })">ถัดไป</a>
                     </li>
-
                 </ul>
             </nav>
         </div>
@@ -90,7 +89,7 @@
 </div>
 
 <script>
-    function deleteAccount(id) {
+    function deleteCategory(id) {
         Swal.fire({
             title: "ต้องการลบหมวดหมู่ใช่ไหม",
             showCancelButton: true,

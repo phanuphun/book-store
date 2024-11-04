@@ -1,6 +1,9 @@
-﻿
+﻿@model IEnumerable<Book>;
 @{
     Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
+    var books = Model.ToList();
+    var msgSucc = TempData["DelSucc"] as string;
+
 }
 
 <div class="my-4">
@@ -13,51 +16,99 @@
         </div>
         <div class="border mt-2" style="height: 1px;"></div>
     </div>
-    <table class="table table-hover ">
-        <thead class="table-light">
-            <tr>
-                <th>#</th>
-                <th>ปกหนังสือ</th>
-                <th>ชื่อหนังสือ</th>
-                <th>จำนวน</th>
-                <th class="text-center">แก้ไข</th>
-                <th class="text-center">ลบ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>
-                    <img src="https://i.pinimg.com/236x/76/db/68/76db6885c6dab57e0eca2ea33371c2cd.jpg"
-                         width="70" class="border rounded" alt="">
-                </td>
-                <td class="w-100">HE CALLED ME BLUE ROSSES</td>
-                <td class="text-center">
-                    20
-                </td>
-                <td>
-                    <a href="/editBook.html" class="btn btn-sm btn-outline-primary">
-                        แก้ไข
-                    </a>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-outline-danger">
-                        ลบ
-                    </button>
-                </td>
-            </tr>
+    @if (!string.IsNullOrEmpty(msgSucc))
+    {
+        <div class="alert alert-success" role="alert">
+            @msgSucc
+        </div>
+    }
+    @if (books.Count() > 0)
+    {
+        <table class="table table-bordered table-hover ">
+            <thead class="">
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>ปกหนังสือ</th>
+                    <th>ชื่อหนังสือ</th>
+                    <th>จำนวน</th>
+                    <th class="text-center">แก้ไข</th>
+                    <th class="text-center">ลบ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < books.Count(); i++)
+                {
+                    <tr>
+                        <td class="text-center"> @(ViewBag.CurrentIndexItem + (i + 1))</td>
+                        <td>
+                            <img src="/bookCovers/@books[i].Image"
+                                 width="70" class="border rounded" alt="">
+                        </td>
+                        <td class="w-100">@books[i].Title</td>
+                        <td class="text-center">
+                            @books[i].Amount
+                        </td>
+                        <td>
+                            <a asp-controller="Book" asp-action="EditBook" asp-route-id="@books[i].Id"
+                               class="btn btn-sm btn-outline-primary">
+                                แก้ไข
+                            </a>
+                        </td>
+                        <td>
+                            <a onClick="deleteBook(@books[i].Id)"
+                               class="btn btn-sm btn-outline-danger">
+                                ลบ
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="w-100 my-3 d-flex justify-content-end">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <!-- if cuuren page > 1 then show previous page -->
+                    <li class="page-item @((ViewBag.CurrentPage == 1) ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("BookStock", new { page = ViewBag.CurrentPage - 1 })">ก่อนหน้า</a>
+                    </li>
+                    @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("BookStock", new { page = i })">@i</a>
+                        </li>
+                    }
 
-        </tbody>
-    </table>
-    <div class="w-100 my-3 d-flex justify-content-end">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">ก่อนหน้า</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">หน้าถัดไป</a></li>
-            </ul>
-        </nav>
-    </div>
+                    <!-- if cuuren page < totalpages then hidding newxt page -->
+                    <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages?"disabled" :"")">
+                        <a class="page-link" href="@Url.Action("BookStock", new { page = ViewBag.CurrentPage + 1 })">ถัดไป</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-primary" role="alert">
+            ยังไม่มีรายการหนังสือในสต๊อก
+        </div>
+    }
+
 </div>
+
+<script>
+    function deleteBook(id) {
+        console.log("delete id:", id);
+
+        Swal.fire({
+            title: "ต้องการลบหนังสือใช่ไหม",
+            showCancelButton: true,
+            confirmButtonText: "ลบ",
+            cancelButtonText: "ยกเลิก",
+            confirmButtonColor: '#ef4444'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `@Url.Action("DeleteBook", "Book")?id=${id}`;
+            }
+        });
+    }
+</script>
