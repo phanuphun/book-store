@@ -16,28 +16,16 @@
 - [ ] ประวัติรายกายการสั่งซื้อ
 
 ## Installation
-1. ตรวจสอบว่าลง `.NET CORE SDK` หรือยัง หากยังไม่ลงให้ติดตั้งก่อนเป็นอันดับแรก
-```csharp
-dotnet --version
-```
-2. ติดตั้ง Package ที่อยู่ใน `.csproj` เพื่อใช้งาน **Entity Framework Core (EF Core)**  
-```shell
-dotnet restore
-```
-3. ตั้งค่าการเชื่อมต่อฐานข้อมูลกับ SQL_Sever ที่ appsettings.json จากนั้นให้เปลี่ยนชื่อ Server Name ของเราให้ตรงกับ SQL Server `ConnectionStrings` 
+1. ตรวจสอบว่าลง .NET CORE SDK ด้วย `dotnet --version` หากยังไม่ลงให้ติดตั้งก่อนเป็นอันดับแรก 
+2. ติดตั้ง Package ที่อยู่ใน .csproj ด้วยคำสั่ง `dotnet restore` เพื่อใช้งาน **Entity Framework Core (EF Core)**  
+3. ตั้งค่าการเชื่อมต่อฐานข้อมูลกับ SQL Server ที่ appsettings.json จากนั้นให้เปลี่ยนชื่อ Server Name ของเราให้ตรงกับ SQL Server ที่ส่วนของ `ConnectionStrings` 
 ```json
   "ConnectionStrings": {
     "DefaultConnection": "Server=<ชื่อฐานข้อมูล>\\SQLEXPRESS;Database=BookStore;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 ```
-4. Migrate ฐานข้อมูลขึ้น SQL Server ด้วย EF Core 
-```shell
-dotnet ef database update
-```
-5. รันโปรเจ็คบน localhost
-```shell
-dotnet run
-```
+4. Migrate ฐานข้อมูลขึ้น SQL Server ด้วย `dotnet ef database update` 
+5. รันโปรเจ็คบน localhost `dotnet run`
 
 
 ## Tech Stack
