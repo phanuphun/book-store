@@ -3,10 +3,7 @@
       
     
 ## Book Store Management System
-  
-ระบบจัดการร้านหนังสือ ทำขึ้นมาเพื่อศึกษาการพัฒนาเว็บด้วย ASP.NET CORE MVC ระบบแบ่งออกเป็น 2 ส่วน ได้แก่ผู้ใช้งานทั่วไป และผู้ดูแลระบบ <br>
-
-**ฟังก์ชันการใช้งาน**
+ระบบแบ่งออกเป็น 2 ส่วน ได้แก่ผู้ใช้งานทั่วไป และผู้ดูแลระบบ <br>
 - [x] สมัครสมาชิก / เข้าสู่ระบบ
 - [x] เพิ่ม ลบ แก้ไข ผู้ใช้งาน / แก้ไขข้อมูลส่วนตัว
 - [x] เพิ่ม ลบ แก้ไข หมวดหมู่หนังสือ
@@ -16,22 +13,13 @@
 - [ ] ประวัติรายกายการสั่งซื้อ
 
 ## Installation
-1. ตรวจสอบว่าลง .NET CORE SDK ด้วย `dotnet --version` หากยังไม่ลงให้ติดตั้งก่อนเป็นอันดับแรก 
-2. ติดตั้ง Package ที่อยู่ใน .csproj ด้วยคำสั่ง `dotnet restore` เพื่อใช้งาน **Entity Framework Core (EF Core)**  
-3. ตั้งค่าการเชื่อมต่อฐานข้อมูลกับ SQL Server ที่ appsettings.json จากนั้นให้เปลี่ยนชื่อ Server Name ของเราให้ตรงกับ SQL Server ที่ส่วนของ `ConnectionStrings` 
+1. `dotnet --version` : ตรวจสอบว่าลง .NET CORE SDK หรือยัง หากยังไม่ลงให้ติดตั้งก่อนเป็นอันดับแรก 
+2. `dotnet restore` : ติดตั้ง Package ที่อยู่ใน .csproj (Entity Framework Core (EF Core))
+3. ตั้งค่าการเชื่อมต่อฐานข้อมูลกับ SQL Server ที่ appsettings.json จากนั้นให้เปลี่ยนชื่อ Server Name ของเราให้ตรงกับ SQL Server
 ```json
   "ConnectionStrings": {
     "DefaultConnection": "Server=<ชื่อฐานข้อมูล>\\SQLEXPRESS;Database=BookStore;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 ```
-4. Migrate ฐานข้อมูลขึ้น SQL Server ด้วย `dotnet ef database update` 
-5. รันโปรเจ็คบน localhost `dotnet run`
-
-
-## Tech Stack
-<div align="left">
-	<code><img width="80" src="https://user-images.githubusercontent.com/25181517/121405754-b4f48f80-c95d-11eb-8893-fc325bde617f.png" alt=".NET Core" title=".NET Core"/></code>
-	<code><img width="80" src="https://user-images.githubusercontent.com/25181517/121405384-444d7300-c95d-11eb-959f-913020d3bf90.png" alt="C#" title="C#"/></code>
-	<code><img width="80" src="https://github.com/marwin1991/profile-technology-icons/assets/19180175/3b371807-db7c-45b4-8720-c0cfc901680a" alt="MSSQL" title="MSSQL"/></code>
-	<code><img width="80" src="https://user-images.githubusercontent.com/25181517/183898054-b3d693d4-dafb-4808-a509-bab54cf5de34.png" alt="Bootstrap" title="Bootstrap"/></code>
-</div>
+4. `dotnet ef database update` : Migrate ฐานข้อมูลขึ้น SQL Server  
+5. `dotnet run` รันโปรเจ็ค
