@@ -1,8 +1,13 @@
 ## Book Store Management System
+This project is created to learn how to development with ASP.NET Core MVC <br>
+**Tech stack** : C#, ASP.NET(8), Bootstrap,  SQL Server, SSMS, Visual Studio<br>
+**Packages** : EFCore, EFCore.sqlServer, EFCore.tool
+
+## Futures
 - [x] Register / Login
-- [x] Create Delete Update Account User
-- [x] Create Delete Update Book Category
-- [x] Create Delete Update Book
+- [x] Account User
+- [x] Book Category
+- [x] Book
 - [ ] Bookmark
 - [ ] Cart
 - [ ] Order
@@ -10,12 +15,12 @@
 
 ## Installation and Setup
 1. Run `dotnet --version` to makesure you have aleady installed .NET CORE SDK , If not install first.
-2. Run `dotnet restore` to install packages (Entity Framework Core :EF Core).
-3. Makesure you have aready install SQL Server and SSMS(Optional).
+2. Run `dotnet restore` to install packages in `.csproject` (Entity Framework Core).
+3. Makesure you have aleady install SQL Server and SSMS(Optional).
 4. Configure  `ConnectionString` for SQL Server in `./appsetting.json` 
 ```json
   "ConnectionStrings": {
-    "DefaultConnection": "Server=<DatabaseName>;Database=BookStore;Trusted_Connection=True;TrustServerCertificate=True;"
+    "DefaultConnection": "Server=<ServerName>;Database=BookStore;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 ```
 4. Run `dotnet ef database update` to migrate database to SQL Server Or if you use NuGet Console, you can run `update-database` instead.
