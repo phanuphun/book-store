@@ -33,41 +33,57 @@ This project is created to learn how to development with ASP.NET Core MVC <br>
         <tr>
             <td>
                 <img src="./wwwroot/demo/login.png"/>
-                <center>- Login -</center>
+                <div align="center">
+                	  Login
+                </div>
             </td>
             <td>
                <img src="./wwwroot/demo/register.png"/>
-               <center>- Register -</center>
+                <div align="center">
+                	  Register
+                </div>
             </td>
         </tr>
         <tr>
             <td>
                 <img src="./wwwroot/demo/homepage.png"/>
-                <center>- Home Page -</center>
+                <div align="center">
+                	  Home Page
+                </div>
             </td>
             <td>
                <img src="./wwwroot/demo/bookDetail.png"/>
-               <center>- Book Detail -</center>
+               <div align="center">
+                	  Book Detail
+                </div>
             </td>
         </tr>
         <tr>
             <td>
                 <img src="./wwwroot/demo/accountEdit.png"/>
-                <center>- Account Edit -</center>
+                <div align="center">
+                	  Account Edit
+                </div>
             </td>
             <td>
                <img src="./wwwroot/demo/users.png"/>
-               <center>- Users -</center>
+               <div align="center">
+                	 Users
+                </div>
             </td>
         </tr>
         <tr>
             <td>
                 <img src="./wwwroot/demo/bookEdit.png"/>
-                <center>- Book Edit -</center>
+                <div align="center">
+                	 Book Edit
+                </div>
             </td>
             <td>
                <img src="./wwwroot/demo/category.png"/>
-               <center>- Categories -</center>
+               <div align="center">
+                 Categories
+                </div>
             </td>
         </tr>
     </tbody>
