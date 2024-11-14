@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace OnlineBookStoreManagementSystem.Models
 {
-    public class AccountUpdate
+    public class AccountDTO
     {
         [Key]
         [DisplayName("รหัสผู้ใช้งาน")]
@@ -20,9 +20,6 @@ namespace OnlineBookStoreManagementSystem.Models
         [EmailAddress(ErrorMessage = "กรุณากรอกอีเมลให้ถูกต้อง")]
         [DisplayName("อีเมล")]
         public string Email { get; set; }
-
-  
-
 
         [Required(ErrorMessage = "กรุณาป้อนชื่อผู้ใช้งาน")]
         [StringLength(100, MinimumLength = 4, ErrorMessage = "ชื่อผู้ใช้งานต้องมีความยาวระหว่าง 4 ถึง 100 ตัวอักษร")]

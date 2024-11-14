@@ -21,7 +21,29 @@ namespace OnlineBookStoreManagementSystem.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            BooksViewHome Books = new BooksViewHome()
+            {
+                Books = _db.Books
+                .OrderByDescending(book => book.Id)
+                .Take(20)
+                .ToList(),
+                Categories = _db.Categories.ToList()
+            };
+            return View(Books);
+        }
+
+        public IActionResult BookDetail(int? id)
+        {
+            Book book = _db.Books.Find(id);
+            if (id == 0 || id == null)
+            {
+                return NotFound();
+            }
+            if(book == null)
+            {
+                return NotFound();
+            }
+            return View(book);
         }
 
         public IActionResult BookStock(int page = 1, int pageSize = 20)
@@ -105,7 +127,7 @@ namespace OnlineBookStoreManagementSystem.Controllers
                 Title = bookDTO.Title,
                 Image = newFileName,
                 CategoryId = bookDTO.CategoryId,
-                Author = bookDTO.Author,
+                Author = bookDTO.Author ?? "",
                 Price = bookDTO.Price,
                 Amount = bookDTO.Amount,
 
@@ -240,6 +262,7 @@ namespace OnlineBookStoreManagementSystem.Controllers
             Book.Drawer = BookData.Book.Drawer ?? "";
             Book.Translater = BookData.Book.Translater ?? "";
             Book.Price = BookData.Book.Price;
+            Book.Amount = BookData.Book.Amount;
             Book.Pages = BookData.Book.Pages ?? "";
             Book.Thickness = BookData.Book.Thickness ?? "";
             Book.Weight = BookData.Book.Weight ?? "";

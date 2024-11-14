@@ -122,7 +122,7 @@ namespace OnlineBookStoreManagementSystem.Controllers
             {
                 return NotFound(); // หรือทำการจัดการในแบบที่คุณต้องการ
             }
-            var accountUpdate = new AccountUpdate
+            var accountUpdate = new AccountDTO
             {
                 Id = account.Id,
                 FirstName = account.FirstName,
@@ -138,7 +138,7 @@ namespace OnlineBookStoreManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateMyAccount(AccountUpdate data)
+        public IActionResult UpdateMyAccount(AccountDTO data)
         {
           
             if (string.IsNullOrWhiteSpace(data.Phone))

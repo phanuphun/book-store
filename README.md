@@ -25,3 +25,50 @@ This project is created to learn how to development with ASP.NET Core MVC <br>
 ```
 4. Run `dotnet ef database update` to migrate database to SQL Server Or if you use NuGet Console, you can run `update-database` instead.
 5. Run `dotnet run` to start project on locallhost.
+
+## Previews
+<table>
+    <thead></thead>
+    <tbody>
+        <tr>
+            <td>
+                <img src="./wwwroot/demo/login.png"/>
+                <center>- Login -</center>
+            </td>
+            <td>
+               <img src="./wwwroot/demo/register.png"/>
+               <center>- Register -</center>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="./wwwroot/demo/homepage.png"/>
+                <center>- Home Page -</center>
+            </td>
+            <td>
+               <img src="./wwwroot/demo/bookDetail.png"/>
+               <center>- Book Detail -</center>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="./wwwroot/demo/accountEdit.png"/>
+                <center>- Account Edit -</center>
+            </td>
+            <td>
+               <img src="./wwwroot/demo/users.png"/>
+               <center>- Users -</center>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="./wwwroot/demo/bookEdit.png"/>
+                <center>- Book Edit -</center>
+            </td>
+            <td>
+               <img src="./wwwroot/demo/category.png"/>
+               <center>- Categories -</center>
+            </td>
+        </tr>
+    </tbody>
+</table>
